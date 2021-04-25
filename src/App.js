@@ -27,7 +27,7 @@ const listOfExpenses = [
 function App() {
   const [currentListOfExpenses, setListOfExpenses] = useState(listOfExpenses);
   const renderNewExpense = (newExpense) => {
-    setListOfExpenses([...currentListOfExpenses, newExpense]);
+    setListOfExpenses((prevState) =>  [...prevState, newExpense]);
   };
   return (
     <div>
