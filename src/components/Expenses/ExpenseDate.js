@@ -1,7 +1,6 @@
 import './ExpenseDate.css';
 
 function ExpenseDate(props) {
-  console.log(props.date)
   return (
     <div className="expense-date">
       <div className="expense-date__day">
