@@ -1,9 +1,12 @@
 import ExpenseItem from './ExpenseItem.js';
 import './Expenses.css'
+import Card  from  '../Containers/Card.js'
+import React from 'react';
+
 
 function Expenses(props) {
   return (
-    <div className = "expenses">
+    <Card className = "expenses">
       {props.expenses.map((expense) => (
         <ExpenseItem
           key = {expense.id}
@@ -12,7 +15,7 @@ function Expenses(props) {
           date={expense.date}
         />
       ))}
-    </div>
+    </Card>
   );
 }
 
