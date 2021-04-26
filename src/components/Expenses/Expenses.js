@@ -1,4 +1,4 @@
-import ExpenseItem from "./ExpenseItem.js";
+import ExpensesList from "./ExpensesList.js";
 import "./Expenses.css";
 import Card from "../Containers/Card.js";
 import React, { useState } from "react";
@@ -16,22 +16,16 @@ function Expenses(props) {
     return year === filterYear;
   };
 
+  const filteredExpenses = props.expenses
+  .filter((expense) => isExpenseHavingSelectedYear(expense.date) || filterYear === "None");
+
   return (
     <Card className="expenses">
       <ExpensesFilter
         selectedYear={filterYear}
         onSelectYearForFilter={selectFilterYear}
       />
-      {props.expenses
-        .filter((expense) => isExpenseHavingSelectedYear(expense.date) || filterYear === "None")
-        .map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+     <ExpensesList expenses = {filteredExpenses} />
     </Card>
   );
 }
