@@ -16,8 +16,10 @@ function Expenses(props) {
     return year === filterYear;
   };
 
-  const filteredExpenses = props.expenses
-  .filter((expense) => isExpenseHavingSelectedYear(expense.date) || filterYear === "None");
+  const filteredExpenses = props.expenses.filter(
+    (expense) =>
+      isExpenseHavingSelectedYear(expense.date) || filterYear === "None"
+  );
 
   return (
     <Card className="expenses">
@@ -25,7 +27,7 @@ function Expenses(props) {
         selectedYear={filterYear}
         onSelectYearForFilter={selectFilterYear}
       />
-     <ExpensesList expenses = {filteredExpenses} />
+      <ExpensesList expenses={filteredExpenses} />
     </Card>
   );
 }
