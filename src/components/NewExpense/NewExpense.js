@@ -1,4 +1,4 @@
-import './NewExpense.css'
+import styles from './NewExpense.module.css'
 import ExpenseForm from './ExpenseForm.js'
 import React, {useState} from 'react'
 const NewExpense = (props) =>
@@ -26,8 +26,8 @@ const NewExpense = (props) =>
 
     if (!isFormRendered) {
         return (
-          <div className="new-expense">
-            <button type="button" className="new-expense__controller__button" onClick={renderExpenseForm}>
+          <div className={styles.new_expense}>
+            <button type="button" className={styles.new_expense__controller__button} onClick={renderExpenseForm}>
               Add Expenses
             </button>
           </div>
@@ -35,7 +35,7 @@ const NewExpense = (props) =>
       }
 
     return (
-        <div className = "new-expense">
+        <div className = {styles.new_expense}>
          <ExpenseForm onCancel =  {resetHandler} onSaveEnteredExpense = {saveEnteredExpense}/>
          </div>
     )

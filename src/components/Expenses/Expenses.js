@@ -1,5 +1,5 @@
 import ExpensesList from "./ExpensesList.js";
-import "./Expenses.css";
+import styles from "./Expenses.module.css";
 import Card from "../Containers/Card.js";
 import React, { useState } from "react";
 import ExpensesFilter from "./ExpensesFilter.js";
@@ -23,7 +23,7 @@ function Expenses(props) {
   );
 
   return (
-    <Card className="expenses">
+    <Card className={styles.expenses}>
       <ExpensesFilter
         selectedYear={filterYear}
         onSelectYearForFilter={selectFilterYear}

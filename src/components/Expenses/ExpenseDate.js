@@ -1,15 +1,15 @@
-import './ExpenseDate.css';
+import styles from './ExpenseDate.module.css';
 
 function ExpenseDate(props) {
   return (
-    <div className="expense-date">
-      <div className="expense-date__day">
+    <div className={styles.expenseDate}>
+      <div className={styles.expenseDateDay}>
         {props.date.toLocaleString("en-US", { day: "2-digit" })}
       </div>
-      <div className="expense-date__month">
+      <div className={styles.expenseDateMonth}>
         {props.date.toLocaleString("en-US", { month: "long" })}
       </div>
-      <div className="expense-date__year">
+      <div className={styles.expenseDateYear}>
         {props.date.getFullYear()}
       </div>
     </div>

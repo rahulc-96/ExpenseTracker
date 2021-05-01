@@ -1,4 +1,4 @@
-import "./ChartBar.css";
+import styles from "./ChartBar.module.css";
 
 const ChartBar = (props) => {
   let barFillHeightPercentage = "0%";
@@ -10,15 +10,15 @@ const ChartBar = (props) => {
   console.log(barFillHeightPercentage)
 
   return (
-    <div className="chart-bar">
-      <div className="chart-bar__inner">
+    <div className= {styles.chartBar}>
+      <div className={styles.chartBarInner}>
         <div
-          className="chart-bar__fill"
+          className={styles.chartBarFill}
           style={{ height: barFillHeightPercentage }}
         ></div>
       </div>
 
-      <div className="chart-bar__label">
+      <div className={styles.chartBarLabel}>
         <label>{props.label}</label>
       </div>
     </div>
