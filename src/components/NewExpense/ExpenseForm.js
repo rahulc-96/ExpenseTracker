@@ -78,6 +78,7 @@ const ExpenseForm = (props) => {
           onConfirm={confirmHandler}
           isDeleteModal={errorState.isDeleteModal}
           action={errorState.action}
+          onCancel={confirmHandler}
         />
       )}
       <form onSubmit={saveEnteredExpense} onReset={props.onCancel}>
