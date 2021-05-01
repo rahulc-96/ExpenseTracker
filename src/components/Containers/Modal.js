@@ -1,5 +1,4 @@
 import React from "react";
-import Card from "./Card";
 import styles from "./Modal.module.css";
 
 const Modal = (props) => {
@@ -7,7 +6,7 @@ const Modal = (props) => {
   return (
     <div>
       <div className={styles.backdrop} onClick={props.onCancel} />
-      <Card className={styles.modal}>
+      <div className={` ${styles.modal} ${styles.wrapper} `}>
         <header className={styles.header}>
           <h2>{props.message}</h2>
         </header>
@@ -22,7 +21,7 @@ const Modal = (props) => {
             </button>
           )}
         </footer>
-      </Card>
+      </div>
     </div>
   );
 };

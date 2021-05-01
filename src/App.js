@@ -32,6 +32,18 @@ function App() {
       return prevState.filter((expense) => expense.id !== expenseId);
     });
   };
+
+  const updateExpenseListOnAllDeleteForYear = (year) =>
+  {
+       if (year === "None")
+        setListOfExpenses([])
+        else{
+          setListOfExpenses((prevState) => {
+            return prevState.filter((expense) => expense.date.getFullYear().toString() !== year);
+          });
+        }
+  }
+
   const renderNewExpense = (newExpense) => {
     setListOfExpenses((prevState) => [...prevState, newExpense]);
   };
@@ -41,6 +53,7 @@ function App() {
       <Expenses
         expenses={currentListOfExpenses}
         onExpenseDeleteEvent={updateExpenseListOnDelete}
+        onAllExpensesDeleteEvent = {updateExpenseListOnAllDeleteForYear}
       />
     </div>
   );

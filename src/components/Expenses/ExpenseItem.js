@@ -9,7 +9,7 @@ function ExpenseItem(props) {
 
   const expenseDeleteHandler = () => {
     setDeleteModalState({
-      message: "Waning !! Selected Expense will be deleted",
+      message: "Warning !! Selected Expense will be deleted.",
       action: "Confirm",
     });
   };
@@ -29,7 +29,7 @@ function ExpenseItem(props) {
           action={deleteModalState.action}
           message = {deleteModalState.message}
           content={"Expense " + props.title + " with Price: $"
-           + props.amount + " will be deleted"
+           + props.amount + " will be deleted."
           }
           onConfirm={confirmDeleteEvent}
           onCancel={cancelDeleteEvent}
