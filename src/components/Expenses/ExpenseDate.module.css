@@ -1,4 +1,4 @@
-.expenseDate {
+.expenseDate{
     display: flex;
     flex-direction: column;
     width: 5.5rem;
@@ -11,16 +11,16 @@
     justify-content: center;
   }
   
-  .expenseDateMonth {
+  .expenseDateMonth{
     font-size: 0.75rem;
     font-weight: bold;
   }
   
-  .expenseDateYear {
+  .expenseDateYear{
     font-size: 0.75rem;
   }
   
-  .expenseDateDay {
+  .expenseDateDay{
     font-size: 1.5rem;
     font-weight: bold;
   }
