@@ -4,13 +4,12 @@ const ChartBar = (props) => {
   let barFillHeightPercentage = "0%";
 
   if (props.maxValue > 0) {
-    barFillHeightPercentage = Math.round((props.value / props.maxValue) * 100) + "%";
+    barFillHeightPercentage =
+      Math.round((props.value / props.maxValue) * 100) + "%";
   }
 
-  console.log(barFillHeightPercentage)
-
   return (
-    <div className= {styles.chartBar}>
+    <div className={styles.chartBar}>
       <div className={styles.chartBarInner}>
         <div
           className={styles.chartBarFill}

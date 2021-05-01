@@ -26,13 +26,22 @@ const listOfExpenses = [
 
 function App() {
   const [currentListOfExpenses, setListOfExpenses] = useState(listOfExpenses);
+
+  const updateExpenseListOnDelete = (expenseId) => {
+    setListOfExpenses((prevState) => {
+      return prevState.filter((expense) => expense.id !== expenseId);
+    });
+  };
   const renderNewExpense = (newExpense) => {
-    setListOfExpenses((prevState) =>  [...prevState, newExpense]);
+    setListOfExpenses((prevState) => [...prevState, newExpense]);
   };
   return (
     <div>
       <NewExpense onRenderNewExpense={renderNewExpense} />
-      <Expenses expenses={currentListOfExpenses} />
+      <Expenses
+        expenses={currentListOfExpenses}
+        onExpenseDeleteEvent={updateExpenseListOnDelete}
+      />
     </div>
   );
 }

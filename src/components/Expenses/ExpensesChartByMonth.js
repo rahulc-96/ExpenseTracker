@@ -1,4 +1,5 @@
 import Chart from "../Chart/Chart.js";
+import styles from "./ExpensesChart.module.css";
 
 const ExpensesChartByMonth = (props) => {
   const expensesGroupedByMonth = [
@@ -21,11 +22,11 @@ const ExpensesChartByMonth = (props) => {
     expensesGroupedByMonth[monthIndex].value += expense.amount;
   }
 
-
-console.log(expensesGroupedByMonth)
-
   return (
     <div>
+      <header className={styles.expenses_chart}>
+        <h4>Expenses grouped by month</h4>
+      </header>
       <Chart dataPoints={expensesGroupedByMonth} />
     </div>
   );

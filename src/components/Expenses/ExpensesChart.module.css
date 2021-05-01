@@ -1,0 +1,9 @@
+.expenses_chart {
+  padding: 0.25 rem;
+  text-align: center;
+}
+
+.expenses_chart h4 {
+  color: white;
+  font-weight: bold;
+}

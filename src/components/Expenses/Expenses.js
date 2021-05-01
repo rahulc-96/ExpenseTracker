@@ -12,6 +12,10 @@ function Expenses(props) {
     setFilterYear(selectedFilterYear);
   };
 
+  const expenseDeleteHandler = (expenseId) => {
+    props.onExpenseDeleteEvent(expenseId);
+  };
+
   const isExpenseHavingSelectedYear = (date) => {
     const year = date.getFullYear().toString();
     return year === filterYear;
@@ -29,7 +33,11 @@ function Expenses(props) {
         onSelectYearForFilter={selectFilterYear}
       />
       <ExpensesChart selectedYear={filterYear} expenses={filteredExpenses} />
-      <ExpensesList expenses={filteredExpenses} />
+      <ExpensesList
+        expenses={filteredExpenses}
+        filterYear = {filterYear}
+        onExpenseDeleteEvent={expenseDeleteHandler}
+      />
     </Card>
   );
 }
