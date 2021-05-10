@@ -1,5 +1,7 @@
 import Chart from "../Chart/Chart.js";
 import styles from "./ExpensesChart.module.css";
+import React from "react";
+
 
 const ExpensesChartByMonth = (props) => {
   const expensesGroupedByMonth = [
@@ -23,12 +25,12 @@ const ExpensesChartByMonth = (props) => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <header className={styles.expenses_chart}>
         <h4>Expenses grouped by month</h4>
       </header>
       <Chart dataPoints={expensesGroupedByMonth} />
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -70,7 +70,7 @@ const ExpenseForm = (props) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       {errorState && (
         <Modal
           message={errorState.message}
@@ -117,7 +117,7 @@ const ExpenseForm = (props) => {
           </div>
         </div>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 

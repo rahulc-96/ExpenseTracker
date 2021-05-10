@@ -23,7 +23,7 @@ function ExpenseItem(props) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       {deleteModalState && (
         <Modal
           action={deleteModalState.action}
@@ -52,7 +52,7 @@ function ExpenseItem(props) {
           </div>
         </Card>
       </li>
-    </div>
+    </React.Fragment>
   );
 }
 

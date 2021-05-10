@@ -48,14 +48,14 @@ function App() {
     setListOfExpenses((prevState) => [...prevState, newExpense]);
   };
   return (
-    <div>
+    <React.Fragment>
       <NewExpense onRenderNewExpense={renderNewExpense} />
       <Expenses
         expenses={currentListOfExpenses}
         onExpenseDeleteEvent={updateExpenseListOnDelete}
         onAllExpensesDeleteEvent = {updateExpenseListOnAllDeleteForYear}
       />
-    </div>
+    </React.Fragment>
   );
 }
 

@@ -1,5 +1,7 @@
 import Chart from "../Chart/Chart.js";
 import styles from "./ExpensesChart.module.css";
+import React from 'react';
+
 
 const ExpensesChartByYear = (props) => {
   let expensesMapByYear = new Map();
@@ -23,12 +25,12 @@ const ExpensesChartByYear = (props) => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <header className={styles.expenses_chart}>
         <h4>Expenses grouped by year</h4>
       </header>
       <Chart dataPoints={expensesGroupedByYear} />
-    </div>
+    </React.Fragment>
   );
 };
 

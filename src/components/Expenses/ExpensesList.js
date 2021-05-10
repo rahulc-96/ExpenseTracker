@@ -3,6 +3,7 @@ import ExpenseItem from "./ExpenseItem.js";
 import React, { useState } from "react";
 import Modal from "../Containers/Modal.js";
 
+
 const ExpensesList = (props) => {
   const expenses = props.expenses;
 
@@ -43,7 +44,7 @@ const ExpensesList = (props) => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {deleteModalState && (
         <Modal
           action={deleteModalState.action}
@@ -71,7 +72,7 @@ const ExpensesList = (props) => {
           Delete All Expenses
         </button>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
