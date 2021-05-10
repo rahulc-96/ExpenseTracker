@@ -1,0 +1,16 @@
+.mainHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #a892ee;
+  padding: 0 2rem;
+}
+
+.mainHeader h1 {
+  color: white;
+}

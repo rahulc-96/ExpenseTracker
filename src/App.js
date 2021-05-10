@@ -1,6 +1,8 @@
 import Expenses from "./components/Expenses/Expenses.js";
 import NewExpense from "./components/NewExpense/NewExpense.js";
-import React, { useState } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import MainHeader from "./components/Containers/MainHeader.js";
+import Login from "./components/Authentication/Login.js";
 
 const listOfExpenses = [
   {
@@ -26,36 +28,60 @@ const listOfExpenses = [
 
 function App() {
   const [currentListOfExpenses, setListOfExpenses] = useState(listOfExpenses);
-
   const updateExpenseListOnDelete = (expenseId) => {
     setListOfExpenses((prevState) => {
       return prevState.filter((expense) => expense.id !== expenseId);
     });
   };
 
-  const updateExpenseListOnAllDeleteForYear = (year) =>
-  {
-       if (year === "None")
-        setListOfExpenses([])
-        else{
-          setListOfExpenses((prevState) => {
-            return prevState.filter((expense) => expense.date.getFullYear().toString() !== year);
-          });
-        }
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState("");
+
+  useEffect(
+    () => setIsLoggedIn(localStorage.getItem("isLoggedIn") === "1"),
+    []
+  );
+
+  const loginHandler = (enteredUsername, enteredPassword) => {
+    localStorage.setItem("isLoggedIn", 1);
+    setIsLoggedIn(true);
+  };
+
+  const updateExpenseListOnAllDeleteForYear = (year) => {
+    if (year === "None") setListOfExpenses([]);
+    else {
+      setListOfExpenses((prevState) => {
+        return prevState.filter(
+          (expense) => expense.date.getFullYear().toString() !== year
+        );
+      });
+    }
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
 
   const renderNewExpense = (newExpense) => {
     setListOfExpenses((prevState) => [...prevState, newExpense]);
   };
   return (
-    <React.Fragment>
-      <NewExpense onRenderNewExpense={renderNewExpense} />
-      <Expenses
-        expenses={currentListOfExpenses}
-        onExpenseDeleteEvent={updateExpenseListOnDelete}
-        onAllExpensesDeleteEvent = {updateExpenseListOnAllDeleteForYear}
-      />
-    </React.Fragment>
+    <Fragment>
+      <MainHeader isLoggedIn={isLoggedIn} logoutHandler={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && (
+          <Fragment>
+            <NewExpense onRenderNewExpense={renderNewExpense} />
+            <Expenses
+              expenses={currentListOfExpenses}
+              onExpenseDeleteEvent={updateExpenseListOnDelete}
+              onAllExpensesDeleteEvent={updateExpenseListOnAllDeleteForYear}
+            ></Expenses>
+          </Fragment>
+        )}
+      </main>
+    </Fragment>
   );
 }
 
