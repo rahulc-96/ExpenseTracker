@@ -1,11 +1,18 @@
 import styles from "./Login.module.css";
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useRef,
+  useContext,
+} from "react";
 import Card from "../Containers/Card.js";
 import Input from "../Containers/Input.js";
+import AuthContext from "../../Context/auth-context.js";
 
 const Login = (props) => {
   const [isFormValid, setIsFormValid] = useState("");
-
+  const authContext = useContext(AuthContext);
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -39,19 +46,29 @@ const Login = (props) => {
     value: "",
     isValid: null,
   });
+
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
   useEffect(() => {
     const formValidationTimer = setTimeout(
-      () => setIsFormValid(passwordState.isValid && emailState.isValid),
+      () => setIsFormValid(passwordIsValid && emailIsValid),
       500
     );
     return () => {
       clearTimeout(formValidationTimer);
     };
-  }, [emailState, passwordState]);
+  }, [emailIsValid, passwordIsValid]);
 
   const loginHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    if (isFormValid) {
+      authContext.onLogin(emailState.value, passwordState.value);
+    } else if (!emailIsValid) {
+      emailRef.current.focus();
+    } else if (!passwordIsValid) {
+      passwordRef.current.focus();
+    }
   };
   const usernameChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", value: event.target.value });
@@ -79,7 +96,7 @@ const Login = (props) => {
           value={emailState.value}
           ref={emailRef}
           label="username"
-          isValid = {emailState.isValid}
+          isValid={emailState.isValid}
         />
         <Input
           id="password"
@@ -87,7 +104,7 @@ const Login = (props) => {
           onBlur={passwordValidationHandler}
           value={passwordState.value}
           ref={passwordRef}
-          isValid = {passwordState.isValid}
+          isValid={passwordState.isValid}
           label="password"
         />
         <div className={styles.actions}>

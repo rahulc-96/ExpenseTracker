@@ -1,8 +1,9 @@
 import Expenses from "./components/Expenses/Expenses.js";
 import NewExpense from "./components/NewExpense/NewExpense.js";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useContext, Fragment } from "react";
 import MainHeader from "./components/Containers/MainHeader.js";
 import Login from "./components/Authentication/Login.js";
+import AuthContext from "./Context/auth-context.js"
 
 const listOfExpenses = [
   {
@@ -34,18 +35,6 @@ function App() {
     });
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState("");
-
-  useEffect(
-    () => setIsLoggedIn(localStorage.getItem("isLoggedIn") === "1"),
-    []
-  );
-
-  const loginHandler = (enteredUsername, enteredPassword) => {
-    localStorage.setItem("isLoggedIn", 1);
-    setIsLoggedIn(true);
-  };
-
   const updateExpenseListOnAllDeleteForYear = (year) => {
     if (year === "None") setListOfExpenses([]);
     else {
@@ -56,21 +45,18 @@ function App() {
       });
     }
   };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
+  
+  const authContext = useContext(AuthContext);
 
   const renderNewExpense = (newExpense) => {
     setListOfExpenses((prevState) => [...prevState, newExpense]);
   };
   return (
     <Fragment>
-      <MainHeader isLoggedIn={isLoggedIn} logoutHandler={logoutHandler} />
+      <MainHeader isLoggedIn={authContext.isLoggedIn} logoutHandler={authContext.onLogout} />
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && (
+        {!authContext.isLoggedIn && <Login onLogin={authContext.onLogin} />}
+        {authContext.isLoggedIn && (
           <Fragment>
             <NewExpense onRenderNewExpense={renderNewExpense} />
             <Expenses
