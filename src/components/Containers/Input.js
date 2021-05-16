@@ -1,9 +1,10 @@
-import React, { useImperativeHandle } from "react";
+import React, { useRef, useImperativeHandle } from "react";
 import styles from "./Input.module.css";
 
 const Input = React.forwardRef((props, ref) => {
+  const inputRef = useRef()
   const activate = () => {
-    return ref.current.focus();
+    return inputRef.current.focus();
   };
 
   useImperativeHandle(ref, () => {
@@ -20,7 +21,7 @@ const Input = React.forwardRef((props, ref) => {
     >
       <label htmlFor={props.id}>{props.label}</label>
       <input
-        ref={props.ref}
+        ref={inputRef}
         min={props.min}
         max={props.max}
         step={props.step}

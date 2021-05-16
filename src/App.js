@@ -17,7 +17,6 @@ function App() {
       />
       <main>
         {!authContext.isLoggedIn && <Login onLogin={authContext.onLogin} />}
-
         {authContext.isLoggedIn && (
           <Fragment>
             <NewExpense />
