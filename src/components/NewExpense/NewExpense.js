@@ -1,33 +1,14 @@
 import styles from './NewExpense.module.css'
 import ExpenseForm from './ExpenseForm.js'
-import React, {useState} from 'react'
-const NewExpense = (props) =>
+import React , {useContext} from 'react'
+import ExpenseContext from '../../Context/expense-context'
+const NewExpense = () =>
 {  
-    const [isFormRendered, setIsFormRendered] = useState(false);
-
-    const renderExpenseForm = () =>
-    {
-        setIsFormRendered(true)
-    }
-
-    const resetHandler = () =>
-    {
-        setIsFormRendered(false)
-    }
-
-    const saveEnteredExpense = (enteredExpense) => {
-        const newExpense =  {
-            ...enteredExpense,
-            id : Math.random(),
-        };
-        props.onRenderNewExpense(newExpense);
-        resetHandler();
-       }
-
-    if (!isFormRendered) {
+    const expenseContext = useContext(ExpenseContext)
+    if (!expenseContext.isFormRendered) {
         return (
           <div className={styles.new_expense}>
-            <button type="button" className={styles.new_expense__controller__button} onClick={renderExpenseForm}>
+            <button type="button" className={styles.new_expense__controller__button} onClick={expenseContext.onRenderForm}>
               Add Expenses
             </button>
           </div>
@@ -36,7 +17,7 @@ const NewExpense = (props) =>
 
     return (
         <div className = {styles.new_expense}>
-         <ExpenseForm onCancel =  {resetHandler} onSaveEnteredExpense = {saveEnteredExpense}/>
+         <ExpenseForm />
          </div>
     )
 };

@@ -1,13 +1,14 @@
 import styles from "./ExpenseForm.module.css";
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import Modal from "../Containers/Modal";
+import ExpenseContext from '../../Context/expense-context'
 
-const ExpenseForm = (props) => {
+const ExpenseForm = () => {
   const [enteredTitle, setExpenseTitle] = useState("");
   const [enteredAmount, setExpenseAmount] = useState("");
   const [enteredDate, setExpenseDate] = useState("");
   const [errorState, setErrorState] = useState();
-
+  const expenseContext = useContext(ExpenseContext);
   const confirmHandler = () => {
     setErrorState(null);
   };
@@ -63,7 +64,7 @@ const ExpenseForm = (props) => {
       date: new Date(enteredDate),
     };
 
-    props.onSaveEnteredExpense(enteredExpense);
+    expenseContext.onAddNewExpense(enteredExpense);
     setExpenseTitle("");
     setExpenseDate("");
     setExpenseAmount("");
@@ -81,7 +82,7 @@ const ExpenseForm = (props) => {
           onCancel={confirmHandler}
         />
       )}
-      <form onSubmit={saveEnteredExpense} onReset={props.onCancel}>
+      <form onSubmit={saveEnteredExpense} onReset={expenseContext.onReset}>
         <div className={styles.new_expense__controls}>
           <div className={styles.new_expense__control}>
             <label>Title</label>

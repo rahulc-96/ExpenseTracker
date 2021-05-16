@@ -1,16 +1,18 @@
 import styles from "./ExpensesList.module.css";
 import ExpenseItem from "./ExpenseItem.js";
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import Modal from "../Containers/Modal.js";
+import ExpenseContext from '../../Context/expense-context'
+
 
 
 const ExpensesList = (props) => {
   const expenses = props.expenses;
-
+  const expenseContext = useContext(ExpenseContext);
   const [deleteModalState, setDeleteModalState] = useState();
 
   const expenseDeleteHandler = (expenseId) => {
-    props.onExpenseDeleteEvent(expenseId);
+    expenseContext.onDeleteExpense(expenseId);
   };
 
   const allDeleteHandler = () => {
@@ -26,7 +28,7 @@ const ExpensesList = (props) => {
   };
 
   const confirmAllDeleteEvent = () => {
-    props.onAllExpenseDeleteEventForYear(props.filterYear);
+    expenseContext.onDeleteAllExpensesFormYear(props.filterYear);
   };
 
   const cancelAllDeleteEvent = () => {
