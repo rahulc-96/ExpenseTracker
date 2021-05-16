@@ -1,9 +1,13 @@
 import styles from "./Login.module.css";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import Card from "../Containers/Card.js";
+import Input from "../Containers/Input.js";
 
 const Login = (props) => {
   const [isFormValid, setIsFormValid] = useState("");
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const emailReducer = (prevState, action) => {
     if (action.type === "USER_INPUT") {
@@ -19,7 +23,10 @@ const Login = (props) => {
     if (action.type === "USER_INPUT") {
       return { value: action.value, isValid: action.value.length > 8 };
     } else if (action.type === "INPUT_BLUR") {
-      return { value: prevState.value, isValid: prevState.value.value.length > 8 };
+      return {
+        value: prevState.value,
+        isValid: prevState.value.length > 8,
+      };
     } else {
       return { value: "", isValid: null };
     }
@@ -28,16 +35,13 @@ const Login = (props) => {
     value: "",
     isValid: null,
   });
-  const[passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value:"",
-    isValid: null
-  })
+  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
+    value: "",
+    isValid: null,
+  });
   useEffect(() => {
     const formValidationTimer = setTimeout(
-      () =>
-        setIsFormValid(
-          passwordState.isValid && emailState.isValid
-        ),
+      () => setIsFormValid(passwordState.isValid && emailState.isValid),
       500
     );
     return () => {
@@ -51,14 +55,15 @@ const Login = (props) => {
   };
   const usernameChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", value: event.target.value });
+    setIsFormValid();
   };
 
   const passwordChangeHandler = (event) => {
-      dispatchPassword({type: 'USER_INPUT', value: event.target.value})
+    dispatchPassword({ type: "USER_INPUT", value: event.target.value });
   };
 
   const passwordValidationHandler = () => {
-      dispatchPassword({type: 'INPUT_BLUR'})
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const usernameValidationHandler = () => {
@@ -67,32 +72,24 @@ const Login = (props) => {
   return (
     <Card className={styles.login}>
       <form onSubmit={loginHandler}>
-        <div
-          className={` ${styles.control} ${
-            emailState.isValid === false ? styles.invalid : ""
-          }`}
-        >
-          <label htmlFor="username">Username</label>
-          <input
-            type="username"
-            onChange={usernameChangeHandler}
-            onBlur={usernameValidationHandler}
-            value={emailState.value}
-          />
-        </div>
-        <div
-          className={` ${styles.control} ${
-            passwordState.isValid === false ? styles.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            onChange={passwordChangeHandler}
-            onBlur={passwordValidationHandler}
-            value={passwordState.value}
-          />
-        </div>
+        <Input
+          id="username"
+          onChange={usernameChangeHandler}
+          onBlur={usernameValidationHandler}
+          value={emailState.value}
+          ref={emailRef}
+          label="username"
+          isValid = {emailState.isValid}
+        />
+        <Input
+          id="password"
+          onChange={passwordChangeHandler}
+          onBlur={passwordValidationHandler}
+          value={passwordState.value}
+          ref={passwordRef}
+          isValid = {passwordState.isValid}
+          label="password"
+        />
         <div className={styles.actions}>
           <button
             className={styles.button}
